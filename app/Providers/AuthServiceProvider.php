@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use JWTAuth;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -23,8 +24,13 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerPolicies();
+        $headerParser = new \Tymon\JWTAuth\Http\Parser\AuthHeaders;
+        $headerParser->setHeaderName('xt-user-token'); // though HTTP headers are case-insensitive so case shouldn't matter
+        $headerParser->setHeaderPrefix(''); // though HTTP headers are case-insensitive so case shouldn't matter
+        JWTAuth::parser()->setChain([$headerParser]);
 
+        $this->registerPolicies();
         //
+
     }
 }

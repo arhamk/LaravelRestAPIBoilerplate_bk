@@ -17,10 +17,10 @@ class ClientAuthenticate
      */
     public function handle($request, Closure $next)
     {
-        if($request->header('Authorization')){
+        if($request->header('xt-api-key')){
             //$host = $request->getHost();
             $host = 'localhost';
-            $api_key = $request->header('Authorization');
+            $api_key = $request->header('xt-api-key');
             try {
                 $client = Client::whereHost($host)->whereApiKey($api_key)->whereEnable(true)->firstOrFail();
                 $request->attributes->add(['client' => $client]);

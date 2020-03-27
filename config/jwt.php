@@ -151,7 +151,7 @@ return [
         'iat',
         'exp',
         'nbf',
-        'sub',
+        /*'sub',*/
         'jti',
     ],
 

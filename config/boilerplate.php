@@ -12,8 +12,10 @@ return [
         // here you can specify some validation rules for your sign-in request
         'validation_rules' => [
             'name' => 'required',
+            'username' => 'required',
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required',
+            'number' => 'required'
         ]
     ],
 
@@ -22,7 +24,7 @@ return [
 
         // here you can specify some validation rules for your login request
         'validation_rules' => [
-            'email' => 'required|email',
+            'username' => 'required',
             'password' => 'required'
         ]
     ],

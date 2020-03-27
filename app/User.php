@@ -17,7 +17,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'username', 'number', 'max_token_count', 'client_id', 'enable'
     ];
 
     /**
@@ -57,6 +57,6 @@ class User extends Authenticatable implements JWTSubject
      */
     public function getJWTCustomClaims()
     {
-        return [];
+        return ['type' => 'user'];
     }
 }

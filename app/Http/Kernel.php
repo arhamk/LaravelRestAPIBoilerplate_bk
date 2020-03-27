@@ -2,6 +2,10 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CheckClientToken;
+use App\Http\Middleware\ClientAuthenticate;
+use App\Http\Middleware\JWTAuthMiddleware;
+use App\Http\Middleware\JwtMiddleware;
 use Barryvdh\Cors\HandleCors;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Tymon\JWTAuth\Http\Middleware\RefreshToken;
@@ -57,6 +61,9 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
 
         'jwt.auth' => \Tymon\JWTAuth\Http\Middleware\Authenticate::class,
-        'jwt.refresh' => RefreshToken::class
+        'jwt.my.auth' => JWTAuthMiddleware::class,
+        'jwt.refresh' => RefreshToken::class,
+        'client.authenticate' => ClientAuthenticate::class,
+        'check.client.token' => CheckClientToken::class
     ];
 }

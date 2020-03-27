@@ -40,4 +40,14 @@ $api->version('v1', function (Router $api) {
             'message' => 'This is a simple example of item returned by your APIs. Everyone can see it.'
         ]);
     });
+
+    //Mz Routes
+    $api->group(['middleware' => 'client.authenticate'], function(Router $api) {
+        $api->get('authenticate', 'App\\Api\\V1\\Controllers\\ClientAuthenticateController@clientAuthenticate');
+    });
+
+    $api->group(['prefix' => 'auth', 'middleware' => 'check.client.token'], function(Router $api) {
+        $api->post('user', 'App\\Api\\V1\\Controllers\\LoginController@user');
+    });
+
 });

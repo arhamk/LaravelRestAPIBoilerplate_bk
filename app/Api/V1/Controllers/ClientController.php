@@ -57,21 +57,19 @@ class ClientController extends Controller
     public function store(Request $request)
     {
         //die('in this method');
-       
+        $apiKey = rand();
+    
         $this->validate($request, [
             'host' => 'required',
-            'api_key' => 'required',
-            'number' => 'required',
-            'uuid' => 'required',
+            'number' => 'required'
         ]);
 
         $client = new Client();
         $client->host = $request->host;
-        $client->api_key = $request->api_key;
         $client->number = $request->number;
-        $client->uuid = $request->uuid;
-        
-         
+        $client->api_key = $apiKey;
+        $client->uuid = 'dc9076e9-2fda-4019-bd2c-900a8284b9c4';
+
         if ($client->save())
         {
             return response()->json([

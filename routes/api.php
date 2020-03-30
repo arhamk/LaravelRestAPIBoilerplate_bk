@@ -70,6 +70,12 @@ $api->version('v1', function (Router $api) {
         $api->group(['prefix' => 'user'], function(Router $api) {
             $api->post('create', 'App\\Api\\V1\\Controllers\\SignUpController@signUp');
         });
+
+        $api->group(['prefix' => 'permission'], function(Router $api) {
+            $api->get('roles/{permissionId}', 'App\\Api\\V1\\Controllers\\PermissionController@viewGroupName');
+        });
+
+
     });
 
 

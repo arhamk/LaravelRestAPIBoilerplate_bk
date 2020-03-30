@@ -2,6 +2,7 @@
 
 namespace App\Api\V1\Controllers;
 
+use Illuminate\Support\Str;
 use JWTAuth;
 use App\Client;
 use Illuminate\Http\Request;
@@ -30,7 +31,7 @@ class ClientController extends Controller
         $client->host = $request->host;
         $client->number = $request->number;
         $client->api_key = $api_key;
-        $client->uuid = 'dc9076e9-2fda-4019-bd2c-900a8284b9c4';
+        $client->uuid = Str::uuid();
 
         if ($client->save())
         {

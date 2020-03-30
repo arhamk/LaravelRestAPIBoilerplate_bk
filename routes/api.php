@@ -68,8 +68,15 @@ $api->version('v1', function (Router $api) {
         });
     });
 
-    
 
 
+
+    Route::any('{path}', function() {
+        return response()->json([
+            'message' => 'Route '.request()->method().':/' . request()->path() .' not found',
+            'error' => 'Not Found',
+            'statusCode' => 404,
+        ], 404);
+    })->where('path', '.*');
 
 });

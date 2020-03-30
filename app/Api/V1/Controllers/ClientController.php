@@ -19,6 +19,7 @@ class ClientController extends Controller
     {
         //die('in this method');
         $apiKey = rand();
+        $api_key = md5($apiKey);
     
         $this->validate($request, [
             'host' => 'required',
@@ -28,7 +29,7 @@ class ClientController extends Controller
         $client = new Client();
         $client->host = $request->host;
         $client->number = $request->number;
-        $client->api_key = $apiKey;
+        $client->api_key = $api_key;
         $client->uuid = 'dc9076e9-2fda-4019-bd2c-900a8284b9c4';
 
         if ($client->save())

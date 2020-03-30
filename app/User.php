@@ -29,6 +29,10 @@ class User extends Authenticatable implements JWTSubject
         'password', 'remember_token',
     ];
 
+    public function roles(){
+        return $this->belongsToMany(Role::class, 'user_roles', 'role_id', 'user_id');
+    }
+
     /**
      * Automatically creates hash for the user password.
      *
@@ -62,6 +66,6 @@ class User extends Authenticatable implements JWTSubject
 
     public function client()
     {
-    return $this->hasOne(client::class); 
+        return $this->hasOne(Client::class);
     }
 }

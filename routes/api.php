@@ -60,13 +60,12 @@ $api->version('v1', function (Router $api) {
     $api->group(['prefix' => 'backend'], function(Router $api) {
      
         $api->group(['prefix' => 'client'], function(Router $api) {
-        $api->post('create', 'App\\Api\\V1\\Controllers\\ClientController@store');
+            $api->post('create', 'App\\Api\\V1\\Controllers\\ClientController@store');
         });
 
         $api->group(['prefix' => 'user'], function(Router $api) {
             $api->post('create', 'App\\Api\\V1\\Controllers\\SignUpController@signUp');
-            });
-
+        });
     });
 
     

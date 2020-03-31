@@ -75,14 +75,16 @@ $api->version('v1', function (Router $api) {
             $api->get('roles/{permissionId}', 'App\\Api\\V1\\Controllers\\PermissionController@viewGroupName');
         });
         $api->group(['prefix' => 'roles'], function(Router $api) {
-            $api->post('create', 'App\\Api\\V1\\Controllers\\RoleController@signUp');
+            $api->post('create', 'App\\Api\\V1\\Controllers\\RoleController@store');
         });
 
+        $api->post('fetch/list/roles', 'App\\Api\\V1\\Controllers\\RoleController@show');
+
 
     });
 
 
-    });
+  
 
 
     Route::any('{path}', function() {

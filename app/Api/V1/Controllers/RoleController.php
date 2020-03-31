@@ -5,7 +5,8 @@ namespace App\Api\V1\Controllers;
 use JWTAuth;
 use App\Role;
 use App\Client;
-use Illuminate\Http\Request;
+use App\Api\V1\Requests\RoleRequest;
+use App\Api\V1\Requests\FetchRequest;
 use App\Http\Controllers\Controller;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
@@ -16,14 +17,8 @@ class RoleController extends Controller
      * @return \Illuminate\Http\JsonResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function store(RoleRequest $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'description' => 'required',
-            'client_id' => 'required'
-        ]);
-      
         $role = new Role();
         $role->name = $request->name;
         $role->description = $request->description;
@@ -41,22 +36,47 @@ class RoleController extends Controller
             ]);
        
          }
+         else
+         {
+            return response()->json([
+                'code' => 422,
+                'data' => [
+                    'role' => 0
+                ]
+            ]);
+
+         }
     }
 
-    public function show(Request $request)
+    public function show(FetchRequest $request)
     {
         $id = $request->orderby;
         $roles = Role::find($id)->paginate(5);
-        return response()->json([
-                'code' => 200,
+        if($roles)
+        {
+                return response()->json([
+                    'code' => 200,
+                    'data' => [ 'list' => [
+                            'data' => $roles,
+                            'totalItems' => 44,
+                            'totalPages' => 9,
+                            'pages' => 1,
+                            'limit' => 5
+                        ]] ]);
+         }
+         else
+         {
+            return response()->json([
+                'code' => 422,
                 'data' => [ 'list' => [
-                        'data' => $roles,
-                        'totalItems' => 44,
-                        'totalPages' => 9,
-                        'pages' => 1,
-                        'limit' => 5
+                        'data' => 'No Record Exist',
+                        'totalItems' => 0,
+                        'totalPages' => 0,
+                        'pages' => 0,
+                        'limit' => 0
                     ]] ]);
-        
+
+         }
 
     }
 }
